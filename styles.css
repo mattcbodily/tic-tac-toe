@@ -1,5 +1,15 @@
 body {
     font-family: 'Kumbh Sans', sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#score-display {
+    width: 600px;
+    display: flex;
+    justify-content: space-between;
 }
 
 #game-board {

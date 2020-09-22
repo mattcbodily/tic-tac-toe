@@ -8,6 +8,12 @@
     <link rel='stylesheet' href='styles.css'>
 </head>
 <body>
+    <section id='score-display'>
+        <h2 id='x-score'></h2>
+        <h2 id='winner-display'></h2>
+        <h2 id='turn-display'></h2>
+        <h2 id='o-score'></h2>
+    </section>
     <section id='game-board'>
         <div id='1' class='game-square' onClick='selectTile(1)'></div>
         <div id='2' class='game-square' onClick='selectTile(2)'></div>
@@ -19,6 +25,7 @@
         <div id='8' class='game-square' onClick='selectTile(8)'></div>
         <div id='9' class='game-square' onClick='selectTile(9)'></div>
     </section>
+    <button onclick='clearBoard()'>Reset</button>
     <script src='index.js'></script>
 </body>
 </html>
