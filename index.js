@@ -40,6 +40,7 @@ const checkWinner = () => {
                 alert('X Wins');
                 xScore++;
                 xScoreNode.innerText = `X Wins: ${xScore}`;
+                return;
             }
         }
     } else {
@@ -50,6 +51,7 @@ const checkWinner = () => {
                 alert('O Wins');
                 oScore++;
                 oScoreNode.innerText = `O Wins: ${oScore}`;
+                return;
             }
         }
     }
@@ -64,7 +66,10 @@ const computerTileSelect = () => {
         tile.innerText = 'O';
         oTiles.push(num);
         turnDisplay.innerText = "X's Turn";
+        xTurn = true;
         checkWinner();
+    } else {
+        computerTileSelect()
     }
 }
 
