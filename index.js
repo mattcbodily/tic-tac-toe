@@ -1,6 +1,7 @@
 let xTiles = [],
     oTiles = [],
-    xTurn = true
+    xTurn = true,
+    winScenarios = [[1,2,3],[4,5,6],[7,8,9],[1,4,7],[2,5,8],[3,6,9],[1,5,9],[3,5,7]],
     xScore = 0,
     oScore = 0;
 
@@ -30,24 +31,26 @@ const clearBoard = () => {
 }
 
 const checkWinner = () => {
-    if((xTiles.includes(1) && xTiles.includes(2) && xTiles.includes(3)) || (xTiles.includes(4) && xTiles.includes(5) && xTiles.includes(6)) || (xTiles.includes(7) && xTiles.includes(8) && xTiles.includes(9)) || (xTiles.includes(1) && xTiles.includes(4) && xTiles.includes(7)) || (xTiles.includes(2) && xTiles.includes(5) && xTiles.includes(8)) || (xTiles.includes(3) && xTiles.includes(6) && xTiles.includes(9)) || (xTiles.includes(1) && xTiles.includes(5) && xTiles.includes(9)) || (xTiles.includes(3) && xTiles.includes(5) && xTiles.includes(7))){
-        turnDisplay.innerText = '';
-        turnDisplay.style.display = 'none';
-        // winnerDisplay.innerText = 'X Wins'
-        // winnerDisplay.style.display = 'initial';
-        alert('X Wins');
-        xScore++;
-        xScoreNode.innerText = `X Wins: ${xScore}`;
-        // clearBoard();
-    } else if((oTiles.includes(1) && oTiles.includes(2) && oTiles.includes(3)) || (oTiles.includes(4) && oTiles.includes(5) && oTiles.includes(6)) || (oTiles.includes(7) && oTiles.includes(8) && oTiles.includes(9)) || (oTiles.includes(1) && oTiles.includes(4) && oTiles.includes(7)) || (oTiles.includes(2) && oTiles.includes(5) && oTiles.includes(8)) || (oTiles.includes(3) && oTiles.includes(6) && oTiles.includes(9)) || (oTiles.includes(1) && oTiles.includes(5) && oTiles.includes(9)) || (oTiles.includes(3) && oTiles.includes(5) && oTiles.includes(7))){
-        turnDisplay.innerText = '';
-        turnDisplay.style.display = 'none';
-        // winnerDisplay.innerText = 'O Wins'
-        // winnerDisplay.style.display = 'initial';
-        alert('O Wins');
-        oScore++;
-        oScoreNode.innerText = `O Wins: ${oScore}`;
-        // clearBoard();
+    if(xTurn){
+        for(let i = 0; i < winScenarios.length; i++){
+            if(JSON.stringify(winScenarios[i]) === JSON.stringify(xTiles)){
+                turnDisplay.innerText = '';
+                turnDisplay.style.display = 'none';
+                alert('X Wins');
+                xScore++;
+                xScoreNode.innerText = `X Wins: ${xScore}`;
+            }
+        }
+    } else {
+        for(let i = 0; i < winScenarios.length; i++){
+            if(JSON.stringify(winScenarios[i]) === JSON.stringify(oTiles)){
+                turnDisplay.innerText = '';
+                turnDisplay.style.display = 'none';
+                alert('O Wins');
+                oScore++;
+                oScoreNode.innerText = `O Wins: ${oScore}`;
+            }
+        }
     }
 }
 
