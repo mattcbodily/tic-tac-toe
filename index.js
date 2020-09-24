@@ -1,5 +1,6 @@
 let xTiles = [],
     oTiles = [],
+    selectedTiles = [],
     xTurn = true,
     pvp = true,
     winScenarios = [[1,2,3],[4,5,6],[7,8,9],[1,4,7],[2,5,8],[3,6,9],[1,5,9],[3,5,7]],
@@ -24,6 +25,7 @@ const clearBoard = () => {
 
     xTiles = [];
     oTiles = [];
+    selectedTiles = [];
     xTurn = true;
     winnerDisplay.innerText = '';
     winnerDisplay.style.display = 'none';
@@ -34,7 +36,7 @@ const clearBoard = () => {
 const checkWinner = () => {
     if(xTurn){
         for(let i = 0; i < winScenarios.length; i++){
-            if(JSON.stringify(winScenarios[i]) === JSON.stringify(xTiles)){
+            if(JSON.stringify(winScenarios[i].sort()) === JSON.stringify(xTiles.sort())){
                 turnDisplay.innerText = '';
                 turnDisplay.style.display = 'none';
                 alert('X Wins');
@@ -43,9 +45,14 @@ const checkWinner = () => {
                 return;
             }
         }
-    } else {
+
+        if(selectedTiles.length === 9){
+            alert("Cat's Scratch");
+            return;
+        }
+    } else if(!xTurn) {
         for(let i = 0; i < winScenarios.length; i++){
-            if(JSON.stringify(winScenarios[i]) === JSON.stringify(oTiles)){
+            if(JSON.stringify(winScenarios[i].sort()) === JSON.stringify(oTiles.sort())){
                 turnDisplay.innerText = '';
                 turnDisplay.style.display = 'none';
                 alert('O Wins');
@@ -54,20 +61,24 @@ const checkWinner = () => {
                 return;
             }
         }
+
+        if(selectedTiles.length === 9){
+            alert("Cat's Scratch");
+            return;
+        }
     }
 }
 
 const computerTileSelect = () => {
     let num = Math.ceil(Math.random() * 9);
-    console.log(num)
     if(!xTiles.includes(num) && !oTiles.includes(num)){
-        console.log('hit')
         let tile = document.getElementById(`${num}`);
         tile.innerText = 'O';
         oTiles.push(num);
+        selectedTiles.push(num);
         turnDisplay.innerText = "X's Turn";
-        xTurn = true;
         checkWinner();
+        xTurn = !xTurn;
     } else {
         computerTileSelect()
     }
@@ -80,10 +91,11 @@ const selectTile = (id) => {
         if(!xTiles.includes(id) && !oTiles.includes(id)){
             tile.innerText = 'X';
             xTiles.push(id);
+            selectedTiles.push(id);
             turnDisplay.innerText = "O's Turn";
             checkWinner();
+            xTurn = !xTurn;
             if(!pvp){
-                console.log('hit')
                 computerTileSelect();
             }
         }
@@ -91,12 +103,14 @@ const selectTile = (id) => {
         if(!xTiles.includes(id) && !oTiles.includes(id)){
             tile.innerText = 'O';
             oTiles.push(id);
+            selectedTiles.push(id);
             turnDisplay.innerText = "X's Turn";
             checkWinner();
+            xTurn = !xTurn;
         }
     }
     
-    xTurn = !xTurn;
+    // xTurn = !xTurn;
 }
 
 const toggleComputerPlayer = (bool) => {
