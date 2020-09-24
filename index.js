@@ -36,7 +36,7 @@ const clearBoard = () => {
 const checkWinner = () => {
     if(xTurn){
         for(let i = 0; i < winScenarios.length; i++){
-            if(JSON.stringify(winScenarios[i].sort()) === JSON.stringify(xTiles.sort())){
+            if(xTiles.sort((a, b) => a - b).join().includes(winScenarios[i].join())){
                 turnDisplay.innerText = '';
                 turnDisplay.style.display = 'none';
                 alert('X Wins');
@@ -52,7 +52,7 @@ const checkWinner = () => {
         }
     } else if(!xTurn) {
         for(let i = 0; i < winScenarios.length; i++){
-            if(JSON.stringify(winScenarios[i].sort()) === JSON.stringify(oTiles.sort())){
+            if(oTiles.sort((a, b) => a - b).join().includes(winScenarios[i].join())){
                 turnDisplay.innerText = '';
                 turnDisplay.style.display = 'none';
                 alert('O Wins');
@@ -96,7 +96,9 @@ const selectTile = (id) => {
             checkWinner();
             xTurn = !xTurn;
             if(!pvp){
-                computerTileSelect();
+                setTimeout(() => {
+                    computerTileSelect()
+                }, 1000)
             }
         }
     } else if(!xTurn && pvp){
